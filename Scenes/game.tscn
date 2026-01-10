@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://chd30c5qrvmhk"]
+[gd_scene load_steps=2 format=3 uid="uid://chd30c5qrvmhk"]
+
+[ext_resource type="Script" uid="uid://b0nvigpwa6klc" path="res://Scenes/Planet.cs" id="1_ebmjs"]
 
 [node name="Game" type="Node"]
 
@@ -9,6 +11,11 @@
 [node name="Options" type="Area2D" parent="."]
 
 [node name="Navigation" type="Area2D" parent="."]
+
+[node name="Planet" type="Node2D" parent="Navigation"]
+script = ExtResource("1_ebmjs")
+
+[node name="Area2D" type="Area2D" parent="Navigation/Planet"]
 
 [node name="WinScreen" type="Area2D" parent="."]
 
