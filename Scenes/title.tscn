@@ -1,0 +1,93 @@
+[gd_scene load_steps=5 format=3 uid="uid://bfasfvcjd3wd4"]
+
+[ext_resource type="Script" uid="uid://b4fh5v6cbkx6k" path="res://Scripts/Title/Title.cs" id="1_fp2oq"]
+[ext_resource type="Texture2D" uid="uid://darkoohmwjr6v" path="res://Sprites/backgroundTemp.jpg" id="2_fp2oq"]
+
+[sub_resource type="CSharpScript" id="CSharpScript_fp2oq"]
+script/source = "using Godot;
+using System;
+
+public partial class Play : Area2D
+{
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
+	{
+	}
+
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
+	}
+}
+"
+
+[sub_resource type="CSharpScript" id="CSharpScript_ekrfg"]
+script/source = "using Godot;
+using System;
+
+public partial class Play : Button
+{
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
+	{
+	}
+
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
+	}
+}
+"
+
+[node name="Title" type="Area2D"]
+script = ExtResource("1_fp2oq")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(960, 640)
+texture = ExtResource("2_fp2oq")
+
+[node name="Play" type="Area2D" parent="."]
+script = SubResource("CSharpScript_fp2oq")
+
+[node name="Sprite" type="Sprite2D" parent="Play"]
+
+[node name="Button" type="Button" parent="Play"]
+offset_left = 802.0
+offset_top = 444.0
+offset_right = 1171.0
+offset_bottom = 503.0
+action_mode = 0
+text = "PLAY"
+script = SubResource("CSharpScript_ekrfg")
+
+[node name="Options" type="Area2D" parent="."]
+script = SubResource("CSharpScript_fp2oq")
+
+[node name="Sprite" type="Sprite2D" parent="Options"]
+
+[node name="Button" type="Button" parent="Options"]
+offset_left = 807.0
+offset_top = 585.0
+offset_right = 1176.0
+offset_bottom = 644.0
+action_mode = 0
+text = "OPTIONS"
+script = SubResource("CSharpScript_ekrfg")
+
+[node name="Quit" type="Area2D" parent="."]
+script = SubResource("CSharpScript_fp2oq")
+
+[node name="Sprite" type="Sprite2D" parent="Quit"]
+
+[node name="Button" type="Button" parent="Quit"]
+offset_left = 722.0
+offset_top = 307.0
+offset_right = 1091.0
+offset_bottom = 366.0
+action_mode = 0
+text = "QUIT"
+script = SubResource("CSharpScript_ekrfg")
+
+[connection signal="pressed" from="Play/Button" to="." method="PlayPressed"]
+[connection signal="pressed" from="Options/Button" to="." method="OptionsPressed"]
+[connection signal="pressed" from="Quit/Button" to="." method="QuitPressed"]

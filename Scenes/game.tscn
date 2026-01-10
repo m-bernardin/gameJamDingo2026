@@ -1,10 +1,11 @@
 [gd_scene load_steps=2 format=3 uid="uid://chd30c5qrvmhk"]
 
 [ext_resource type="PackedScene" uid="uid://egjbhvtq6ry8" path="res://Scenes/navigation.tscn" id="1_ebmjs"]
+[ext_resource type="PackedScene" uid="uid://bfasfvcjd3wd4" path="res://Scenes/title.tscn" id="1_ebmjs"]
 
 [node name="Game" type="Node"]
 
-[node name="Title" type="Area2D" parent="."]
+[node name="Title" parent="." instance=ExtResource("1_ebmjs")]
 
 [node name="MiniGame" type="Area2D" parent="."]
 
@@ -15,3 +16,4 @@
 [node name="WinScreen" type="Area2D" parent="."]
 
 [node name="LossScreen" type="Area2D" parent="."]
+position = Vector2(44, 42)
