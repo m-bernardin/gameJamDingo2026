@@ -12,6 +12,11 @@
 
 [node name="Navigation" type="Area2D" parent="."]
 
+[node name="Planet" type="Node2D" parent="Navigation"]
+script = ExtResource("1_ebmjs")
+
+[node name="Area2D" type="Area2D" parent="Navigation/Planet"]
+
 [node name="WinScreen" type="Area2D" parent="."]
 
 [node name="LossScreen" type="Area2D" parent="."]
