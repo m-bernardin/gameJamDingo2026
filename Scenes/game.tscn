@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://chd30c5qrvmhk"]
+
+[node name="Game" type="Node"]
+
+[node name="Title" type="Area2D" parent="."]
+
+[node name="MiniGame" type="Area2D" parent="."]
+
+[node name="Options" type="Area2D" parent="."]
+
+[node name="Navigation" type="Area2D" parent="."]
+
+[node name="WinScreen" type="Area2D" parent="."]
+
+[node name="LossScreen" type="Area2D" parent="."]
