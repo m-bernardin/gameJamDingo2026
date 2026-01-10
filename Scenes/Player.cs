@@ -24,5 +24,6 @@ public partial class Player : Node2D
 			PlayerStats.Add(Stats[i]);
 		}
 		//formula
+		return 75;
 	}
 }
