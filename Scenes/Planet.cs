@@ -2,18 +2,19 @@ using Godot;
 using System;
 using System.Security;
 
+[GlobalClass]
 public partial class Planet : Node2D
 {
-	String Name;
+	public String PlanetName;
 	String FlavourText;
 	int ChallengeType;
 	int Difficulty;
 	int[] Stats;
 	int Ressource;
 	int Qty;
-	public Planet(String Name,String FlavourText,int ChallengeType,int Difficulty,int[] Stats,int Ressource,int Qty)
+	public Planet(String PlanetName,String FlavourText,int ChallengeType,int Difficulty,int[] Stats,int Ressource,int Qty)
 	{
-		this.Name=Name;
+		this.PlanetName=PlanetName;
 		this.FlavourText=FlavourText;
 		this.ChallengeType=ChallengeType;
 		this.Difficulty=Difficulty;
@@ -33,7 +34,7 @@ public partial class Planet : Node2D
 
 	public int MesureSurvival()
 	{
-		
+		return 60;
 	}
 
 	public void SwitchScreen()
