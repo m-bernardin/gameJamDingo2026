@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://cvcqipvl4adcf"]
+
+[ext_resource type="Script" uid="uid://deenforl141ko" path="res://Scripts/MiniGame/GamePieces/GamePiece.cs" id="1_rq21l"]
+[ext_resource type="Script" uid="uid://vn4c4ma2uhjd" path="res://Scripts/MiniGame/GamePieces/Piece1.cs" id="2_sbppy"]
+[ext_resource type="Texture2D" uid="uid://b51yf0ywrjf63" path="res://Sprites/gamePieceTemp.png" id="2_vcft8"]
+[ext_resource type="Script" uid="uid://lut3l4cwdkgo" path="res://Scripts/MiniGame/MiniGameManager.cs" id="4_5rybl"]
+
+[node name="MiniGame" type="Area2D"]
+
+[node name="GamePiece" type="Node2D" parent="."]
+script = ExtResource("1_rq21l")
+
+[node name="Piece1" type="Area2D" parent="GamePiece"]
+position = Vector2(76, 105)
+script = ExtResource("2_sbppy")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GamePiece/Piece1"]
+polygon = PackedVector2Array(-48.400024, -73.099976, 0, -73, 0, -24, 49, -24, 49, 73, 0, 73, 0, 24, -49, 24)
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="GamePiece/Piece1"]
+position = Vector2(-3.0517578e-05, 0)
+scale = Vector2(0.30833334, 0.30833337)
+texture = ExtResource("2_vcft8")
+metadata/_edit_lock_ = true
+
+[node name="MiniGameManager" type="Node2D" parent="."]
+script = ExtResource("4_5rybl")
