@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 
 public partial class GamePiece : Area2D
 {
@@ -59,7 +60,7 @@ public partial class GamePiece : Area2D
 		if(!beingDragged)BeginDrag();
 		if(beingDragged)
 		{
-			EndDrag(!HasOverlappingAreas());
+			EndDrag(CheckValidity());
 			GlobalPosition=GetGlobalMousePosition();
 		}
 	}
@@ -84,5 +85,15 @@ public partial class GamePiece : Area2D
 			}
 			beingDragged=false;
 		}
+	}
+	public bool CheckValidity()
+	{
+		Area2D[] overlaps=GetOverlappingAreas().ToArray();
+		bool valid=true;
+			for(int i=0;i<overlaps.Length;++i)
+			{
+				if(overlaps[i]==this)valid=false;
+			}
+		return valid;
 	}
 }
