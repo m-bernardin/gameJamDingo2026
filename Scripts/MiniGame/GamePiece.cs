@@ -15,6 +15,7 @@ public partial class GamePiece : Area2D
 		//var collisionBox=new CollisionBox();
 		//collisionBox.MouseEntered+=()=>MouseEntered();
 		//collisionBox.MouseExited+=()=>MouseExited();
+		InputPickable=true;
 	}
 	public override void _Process(double delta)
 	{
@@ -60,8 +61,8 @@ public partial class GamePiece : Area2D
 		if(!beingDragged)BeginDrag();
 		if(beingDragged)
 		{
-			EndDrag(CheckValidity());
 			GlobalPosition=GetGlobalMousePosition();
+			EndDrag(CheckValidity());
 		}
 	}
 	public void BeginDrag()
@@ -81,7 +82,9 @@ public partial class GamePiece : Area2D
 			if (!validMove)
 			{
 				GD.Print("invalid move detected, moving to: "+originalPosition);
+				GD.Print("(current position: "+GlobalPosition+")");
 				GlobalPosition=originalPosition;
+				GD.Print("piece moved, new position: "+GlobalPosition);
 			}
 			beingDragged=false;
 		}
@@ -92,7 +95,7 @@ public partial class GamePiece : Area2D
 		bool valid=true;
 			for(int i=0;i<overlaps.Length;++i)
 			{
-				if(overlaps[i]==this)valid=false;
+				if(overlaps[i].InputPickable==true)valid=false;
 			}
 		return valid;
 	}
