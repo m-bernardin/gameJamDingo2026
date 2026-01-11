@@ -41,7 +41,6 @@ public partial class Navigation : Node2D
 			ChildNodeB.Position=new Godot.Vector2(1520,400);
 		}
 	}
-
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
@@ -73,7 +72,6 @@ public partial class Navigation : Node2D
 		Planet3.CustomInit("Tattooine","add later",1,0, Array.Empty<int>(), 0,0);
 		Planets.Add(Planet3);
 	}
-
 	private void GenerateTree()
 	{
 		PlanetTree=new Dictionary<Planet,ArrayList>();
