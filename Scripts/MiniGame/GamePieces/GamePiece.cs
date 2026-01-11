@@ -1,17 +1,23 @@
 using Godot;
 using System;
 
-public partial class GamePiece : Node2D
+public partial class GamePiece : Area2D
 {
-	protected int size;
-	protected int resource;
+	private int size;
+	private int resource;
 	private bool collected;
-	protected Vector2 TILE_SIZE=new Vector2(50,50);
+	private bool beingDragged;
+	private bool mouseInside;
+	private Vector2 originalPosition;
 	public override void _Ready()
 	{
+		//var collisionBox=new CollisionBox();
+		//collisionBox.MouseEntered+=()=>MouseEntered();
+		//collisionBox.MouseExited+=()=>MouseExited();
 	}
 	public override void _Process(double delta)
 	{
+		Dragging();
 	}
 	//setters
 	public void SetSize(int size)
@@ -39,22 +45,42 @@ public partial class GamePiece : Node2D
 	{
 		return collected;
 	}
-	//Highlight methods
+	//dragging methods
 	private void MouseEntered()
 	{
-		Highlight();
+		mouseInside=true;
 	}
 	private void MouseExited()
 	{
-		UnHighlight();
+		mouseInside=false;
 	}
-	protected void UnHighlight()
+	public void Dragging()
 	{
-		GD.Print("unhighlighting block");
+		if(!beingDragged)BeginDrag();
+		if(beingDragged)
+		{
+			EndDrag(!HasOverlappingAreas());
+			GlobalPosition=GetLocalMousePosition();
+		}
+		GD.Print("dragging state: "+beingDragged);
 	}
-	protected void Highlight()
+	public void BeginDrag()
 	{
-		GD.Print("highlighting block");
+		if (Input.IsMouseButtonPressed(MouseButton.Left)&&mouseInside)
+		{
+			originalPosition=GlobalPosition;
+			beingDragged=true;
+		}
 	}
-	//snapping
+	public void EndDrag(bool validMove)
+	{
+		if (Input.IsMouseButtonPressed(MouseButton.Right))
+		{
+			if (!validMove)
+			{
+				GlobalPosition=originalPosition;
+			}
+			beingDragged=false;
+		}
+	}
 }
