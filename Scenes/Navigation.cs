@@ -35,11 +35,15 @@ public partial class Navigation : Node2D
 			{
 				GD.Print(value.PlanetName);
 			}
+			Random r = new Random();
+			StartNode.SetSprite("res://Sprites/Planet0.png");
 			AddChild(StartNode);
 			StartNode.Position=new Godot.Vector2(1000,1000);
 			FindChildren();
+			ChildNodeA.SetSprite("res://Sprites/Planet"+(r.Next(6)+2)+".png");
 			AddChild(ChildNodeA);
 			ChildNodeA.Position=new Godot.Vector2(400,400);
+			ChildNodeB.SetSprite("res://Sprites/Planet"+(r.Next(6)+2)+".png");
 			AddChild(ChildNodeB);
 			ChildNodeB.Position=new Godot.Vector2(1520,400);
 		}
@@ -139,7 +143,8 @@ public partial class Navigation : Node2D
 		ArrayList BestPlanet=new ArrayList();
 		var scene=ResourceLoader.Load<PackedScene>("res://Scenes/Planet.tscn");
 		var FinalPlanet=scene.Instantiate<Planet>();
-		FinalPlanet.CustomInit("Best","add later",1,0, Array.Empty<int>(), 0,0);
+		FinalPlanet.CustomInit("Eden","A beautiful, lush planet with boutiful water, food and air.",1,0, Array.Empty<int>(), 0,0);
+		FinalPlanet.SetSprite("res://Sprites/Planet1.png");
 		BestPlanet.Add(FinalPlanet);
 		foreach(Planet final in CurrentPlanets)
 		{
@@ -163,8 +168,11 @@ public partial class Navigation : Node2D
 			FindChildren();
 			if (ChildNodeB != null)
 			{
+				Random r = new Random();
 				AddChild(ChildNodeA);
+				ChildNodeA.SetSprite("res://Sprites/Planet"+(r.Next(6)+2)+".png");
 				ChildNodeA.Position=new Godot.Vector2(400,400);
+				ChildNodeB.SetSprite("res://Sprites/Planet"+(r.Next(6)+2)+".png");
 				AddChild(ChildNodeB);
 				ChildNodeB.Position=new Godot.Vector2(1520,400);
 			}

@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Security;
+using System.Threading.Tasks.Dataflow;
 
 //[GlobalClass]
 public partial class Planet : Node2D
@@ -41,6 +42,11 @@ public partial class Planet : Node2D
 	public void PlanetPressed(){
 		GD.Print(PlanetName);
 		Pressed=!Pressed;
+	}
+	public void SetSprite(String Filepath)
+	{
+		Sprite2D Sprite=GetNode<Sprite2D>("Sprite");
+		Sprite.Texture=GD.Load<Texture2D>(Filepath);
 	}
 	
 	
