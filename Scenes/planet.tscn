@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dhlgffowoy3na"]
+[gd_scene load_steps=5 format=3 uid="uid://bukkoivp7i1bc"]
 
 [ext_resource type="Script" uid="uid://b0nvigpwa6klc" path="res://Scenes/Planet.cs" id="1_m0iey"]
 [ext_resource type="Texture2D" uid="uid://cbjqx78gei1wx" path="res://planetTEMP.png" id="2_ytj11"]

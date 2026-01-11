@@ -37,35 +37,10 @@ public partial class Planet : Node2D
 	{
 	}
 
-	public int MesureSurvival()
-	{
-		return 60;
-	}
 
-	public void SwitchScreen()
-	{
-		int outcome=MesureSurvival();
-
-		if (outcome == 0)
-		{
-			//loss, switch screen to loss screen
-		}
-		else
-		{
-			if (outcome == 1)
-			{
-				//alter player stat, give feedback that a hit was taken
-			}
-			else if (outcome == 2){
-				//give feedback landing was perfect
-			}
-			//display minigame screen
-
-		}
-	}
 	public void PlanetPressed(){
 		GD.Print(PlanetName);
-		Pressed=true;
+		Pressed=!Pressed;
 	}
 	
 	

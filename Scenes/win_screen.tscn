@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgf1fhu7yo234"]
+
+[ext_resource type="Script" uid="uid://88bv5rsauxhy" path="res://Scenes/WinScreen.cs" id="1_l5sol"]
+
+[node name="WinScreen" type="Node2D"]
+script = ExtResource("1_l5sol")
+
+[node name="Win" type="Label" parent="."]
+offset_left = 252.0
+offset_top = 246.0
+offset_right = 1668.0
+offset_bottom = 625.0
+theme_override_font_sizes/font_size = 74
+text = "You found a better world!!
+"
+
+[node name="Back" type="Button" parent="."]
+offset_left = 485.0
+offset_top = 477.0
+offset_right = 1322.0
+offset_bottom = 600.0
+text = "Back to menu"
+
+[connection signal="pressed" from="Back" to="." method="GoBack"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bfasfvcjd3wd4"]
+[gd_scene load_steps=5 format=3 uid="uid://cv8ujtbppg5bp"]
 
 [ext_resource type="Script" uid="uid://b4fh5v6cbkx6k" path="res://Scripts/Title/Title.cs" id="1_fp2oq"]
 [ext_resource type="Texture2D" uid="uid://darkoohmwjr6v" path="res://Sprites/backgroundTemp.jpg" id="2_fp2oq"]
