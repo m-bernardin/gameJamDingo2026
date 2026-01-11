@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cvcqipvl4adcf"]
+[gd_scene load_steps=6 format=3 uid="uid://cvcqipvl4adcf"]
 
 [ext_resource type="Script" uid="uid://lut3l4cwdkgo" path="res://Scripts/MiniGame/MiniGameManager.cs" id="1_xouaj"]
 [ext_resource type="PackedScene" uid="uid://ievtlr3bktwa" path="res://Scenes/MiniGame/piece1.tscn" id="2_xouaj"]
 [ext_resource type="PackedScene" uid="uid://mkn3usfm23qe" path="res://Scenes/MiniGame/piece2.tscn" id="3_gjcx7"]
+[ext_resource type="Script" uid="uid://wht5kuwsglu" path="res://Scripts/MiniGame/Timer.cs" id="4_4cwk8"]
+[ext_resource type="Script" uid="uid://b07okgiiocv7c" path="res://Scripts/MiniGame/TimerLabel.cs" id="5_3671c"]
 
 [node name="MiniGame" type="Area2D"]
 
@@ -11,5 +13,12 @@ script = ExtResource("1_xouaj")
 piecesRef = Array[PackedScene]([ExtResource("2_xouaj"), ExtResource("3_gjcx7")])
 
 [node name="Timer" type="Timer" parent="."]
+autostart = true
+script = ExtResource("4_4cwk8")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 448.0
+offset_bottom = 193.0
+script = ExtResource("5_3671c")
 
 [connection signal="timeout" from="Timer" to="MiniGameManager" method="GameEnd"]

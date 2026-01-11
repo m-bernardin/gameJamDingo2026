@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://mkn3usfm23qe"]
 
-[ext_resource type="Script" uid="uid://deenforl141ko" path="res://Scripts/MiniGame/GamePiece.cs" id="1_xfjdw"]
+[ext_resource type="Script" uid="uid://bwqx42cvghe7v" path="res://Scripts/MiniGame/GamePieces/Piece2.cs" id="1_xfjdw"]
 [ext_resource type="Texture2D" uid="uid://dowxp5b4jpf18" path="res://Sprites/gamePiece2Temp.png" id="2_7vce0"]
 
 [node name="Piece2" type="Area2D"]
