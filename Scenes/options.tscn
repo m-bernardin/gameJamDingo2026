@@ -1,0 +1,54 @@
+[gd_scene load_steps=3 format=3 uid="uid://ch5pacdga2ixx"]
+
+[ext_resource type="Script" uid="uid://b77qt06pfxa6s" path="res://Scripts/Options/Options.cs" id="1_4tmxy"]
+[ext_resource type="Texture2D" uid="uid://darkoohmwjr6v" path="res://Sprites/backgroundTemp.jpg" id="2_qyyw6"]
+
+[node name="Options" type="Area2D"]
+position = Vector2(222, 116)
+script = ExtResource("1_4tmxy")
+
+[node name="background" type="Sprite2D" parent="."]
+position = Vector2(738, 524)
+texture = ExtResource("2_qyyw6")
+metadata/_edit_lock_ = true
+
+[node name="SFXVolume" type="ProgressBar" parent="."]
+offset_left = 451.0
+offset_top = 317.0
+offset_right = 911.0
+offset_bottom = 405.0
+value = 50.0
+
+[node name="MusicVolume" type="ProgressBar" parent="."]
+offset_left = 456.0
+offset_top = 416.0
+offset_right = 916.0
+offset_bottom = 483.0
+value = 50.0
+
+[node name="Credits" type="Button" parent="."]
+offset_left = -73.0
+offset_top = 516.0
+offset_right = 354.0
+offset_bottom = 799.0
+text = "credits"
+
+[node name="Back" type="Button" parent="."]
+offset_left = 492.0
+offset_top = 574.0
+offset_right = 1083.0
+offset_bottom = 807.0
+text = "back"
+
+[node name="MasterVolume" type="ProgressBar" parent="."]
+offset_left = 445.0
+offset_top = 168.0
+offset_right = 905.0
+offset_bottom = 256.0
+value = 50.0
+
+[connection signal="value_changed" from="SFXVolume" to="." method="SFXVolumeChnaged"]
+[connection signal="value_changed" from="MusicVolume" to="." method="MusicVolumeChanged"]
+[connection signal="pressed" from="Credits" to="." method="CreditsPressed"]
+[connection signal="pressed" from="Back" to="." method="BackPressed"]
+[connection signal="value_changed" from="MasterVolume" to="." method="MasterVolumeChanged"]

@@ -16,13 +16,16 @@ public partial class Title : Area2D
 	private void PlayPressed()
 	{
 		GD.Print("play pressed");
+		GetTree().ChangeSceneToFile("res://Scenes/navigation.tscn");
 	}
 	private void OptionsPressed()
 	{
 		GD.Print("options pressed");
+		GetTree().ChangeSceneToFile("res://Scenes/options.tscn");
 	}
 	private void QuitPressed()
 	{
 		GD.Print("quit pressed");
+		GetTree().Quit();
 	}
 }

@@ -1,7 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://chd30c5qrvmhk"]
+[gd_scene load_steps=3 format=3 uid="uid://chd30c5qrvmhk"]
 
-[ext_resource type="PackedScene" uid="uid://egjbhvtq6ry8" path="res://Scenes/navigation.tscn" id="1_ebmjs"]
 [ext_resource type="PackedScene" uid="uid://bfasfvcjd3wd4" path="res://Scenes/title.tscn" id="1_ebmjs"]
+[ext_resource type="PackedScene" uid="uid://ch5pacdga2ixx" path="res://Scenes/options.tscn" id="2_qxrlw"]
 
 [node name="Game" type="Node"]
 
@@ -9,7 +9,7 @@
 
 [node name="MiniGame" type="Area2D" parent="."]
 
-[node name="Options" type="Area2D" parent="."]
+[node name="Options" parent="." instance=ExtResource("2_qxrlw")]
 
 [node name="Navigation" parent="." instance=ExtResource("1_ebmjs")]
 
