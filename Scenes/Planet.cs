@@ -6,12 +6,12 @@ using System.Security;
 public partial class Planet : Node2D
 {
 	public String PlanetName;
-	String FlavourText;
-	int ChallengeType;
-	int Difficulty;
-	int[] Stats;
-	int Ressource;
-	int Qty;
+	public String FlavourText;
+	public int ChallengeType;
+	public int Difficulty;
+	public int[] Stats;
+	public int Ressource;
+	public int Qty;
 	public bool Pressed=false;
 	public Planet()
 	{

@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Numerics;
 using System.Threading.Tasks.Dataflow;
@@ -149,5 +150,11 @@ public partial class Navigation : Node2D
 		{
 			ChildNodeB=null;
 		}
+	}
+
+	private void RunChallenge()
+	{
+		Player Alien=(Player)GetNode<Node2D>("Player");
+		int Odds=Alien.GetOdds(SelectedNode.Stats,SelectedNode.Difficulty);
 	}
 }

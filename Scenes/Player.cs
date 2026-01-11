@@ -23,12 +23,12 @@ public partial class Player : Node2D
 
 	public int GetOdds(int[] StatsNeeded,int ChallengeType)
 	{
-		ArrayList PlayerStats=new ArrayList();
+		int average=0;
 		foreach(int i in StatsNeeded)
 		{
-			PlayerStats.Add(Stats[i]);
+			average+=Stats[i];
 		}
-		//formula
-		return 75;
+		average=average/StatsNeeded.Length;
+		return average;
 	}
 }
