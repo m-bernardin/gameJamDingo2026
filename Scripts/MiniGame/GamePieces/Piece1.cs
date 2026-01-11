@@ -1,23 +1,19 @@
 using Godot;
 using System;
-using System.Linq;
+using System.Drawing;
 
-public partial class CollectionArea : Area2D
+public partial class Piece1 : GamePiece
 {
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		InputPickable=false;
-		AudioBusOverride=false;
+		base._Ready();
+		size=4;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-	}
-	public Area2D[] GetCollectedPieces()
-	{
-		
-		return GetOverlappingAreas().ToArray();
+		Dragging();
 	}
 }

@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://canf8wnteobal"]
+
+[ext_resource type="Script" uid="uid://dg37a5wnh70ca" path="res://Scripts/MiniGame/StorageArea.cs" id="1_behdh"]
+
+[node name="StorageArea" type="Area2D"]
+script = ExtResource("1_behdh")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-121.610016, -24.000366)
+scale = Vector2(2.2416406, 1)
+polygon = PackedVector2Array(-1170, -322, 1370, -323, 1370, -1090, -1187, -1036)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="."]
+position = Vector2(152, 44)
+rotation = 3.1415927
+scale = Vector2(2.2416406, 1)
+polygon = PackedVector2Array(-1170, -322, 1370, -323, 1370, -1090, -1187, -1036)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="."]
+position = Vector2(257, 18)
+rotation = 4.712389
+scale = Vector2(2.2416406, 2.4107695)
+polygon = PackedVector2Array(-1170, -322, 1370, -323, 1370, -1090, -1187, -1036)
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="."]
+position = Vector2(-151.33456, 23.999268)
+rotation = 1.5707964
+scale = Vector2(2.2416406, 2.2416406)
+polygon = PackedVector2Array(-1170, -322, 1370, -323, 1370, -1090, -1187, -1036)

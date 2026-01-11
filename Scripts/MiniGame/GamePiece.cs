@@ -4,18 +4,15 @@ using System.Linq;
 
 public partial class GamePiece : Area2D
 {
-	private int size;
-	private int resource;
+	protected int size;
 	private bool collected;
 	private bool beingDragged;
 	private bool mouseInside;
 	private Vector2 originalPosition;
 	public override void _Ready()
 	{
-		//var collisionBox=new CollisionBox();
-		//collisionBox.MouseEntered+=()=>MouseEntered();
-		//collisionBox.MouseExited+=()=>MouseExited();
 		InputPickable=true;
+		AudioBusOverride=false;
 	}
 	public override void _Process(double delta)
 	{
@@ -26,10 +23,6 @@ public partial class GamePiece : Area2D
 	{
 		this.size=size;
 	}
-	public void SetResource(int resource)
-	{
-		this.resource=resource;
-	}
 	public void SetCollected(bool collected)
 	{
 		this.collected=collected;
@@ -38,10 +31,6 @@ public partial class GamePiece : Area2D
 	public int GetSize()
 	{
 		return size;
-	}
-	public int GetResource()
-	{
-		return resource;
 	}
 	public bool GetCollected()
 	{
