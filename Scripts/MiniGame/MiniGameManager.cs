@@ -24,30 +24,23 @@ public partial class MiniGameManager : Node2D
 	}
 	public void GameEnd()
 	{
-		GD.Print("received game end");
 		int score=0;
-		GD.Print("reset score");
 		GamePiece[] scoringCandidates = null;
 		if (collectionArea.GetCollectedPieces().Length > 0 )
 		{
 			scoringCandidates = Array.ConvertAll(collectionArea.GetCollectedPieces(), item => (GamePiece) item);
-			GD.Print("Overlapping objects obtained: "+scoringCandidates);
 			for(int i = 0; i < scoringCandidates.Length; ++i)
 			{
 				bool valid=true;
 				GamePiece candidate=scoringCandidates[i];
-				GD.Print("Checking candidate: "+candidate);
 				Area2D[] overlaps=candidate.GetOverlappingAreas().ToArray();
-				GD.Print("obtained overlaps: "+overlaps);
 				if(overlaps.Length>0){
 					for(int j = 0; j < overlaps.Length; ++j)
 					{
-						Area2D overlap=overlaps[i];
-						GD.Print("checking overlap: overlap");
+						Area2D overlap=overlaps[j];
 						if (overlap.AudioBusOverride)
 						{
 							valid=false;
-							GD.Print("");
 						}
 					}
 				}
