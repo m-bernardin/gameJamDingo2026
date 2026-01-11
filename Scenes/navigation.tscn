@@ -1,16 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://egjbhvtq6ry8"]
+[gd_scene load_steps=3 format=3 uid="uid://egjbhvtq6ry8"]
 
 [ext_resource type="Script" uid="uid://c0sk0eq48qcjw" path="res://Scenes/Navigation.cs" id="1_gxgjm"]
-[ext_resource type="Script" uid="uid://b0nvigpwa6klc" path="res://Scenes/Planet.cs" id="2_ut0uc"]
 [ext_resource type="Script" uid="uid://bkr8fc3vdy7h2" path="res://Scenes/Player.cs" id="3_5pagq"]
 
 [node name="Navigation" type="Node2D"]
 script = ExtResource("1_gxgjm")
 
-[node name="Planet" type="Node2D" parent="."]
-script = ExtResource("2_ut0uc")
-
-[node name="Area2D" type="Area2D" parent="Planet"]
-
 [node name="Player" type="Node2D" parent="."]
+position = Vector2(136, 482)
 script = ExtResource("3_5pagq")

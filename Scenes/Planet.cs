@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Security;
 
-[GlobalClass]
+//[GlobalClass]
 public partial class Planet : Node2D
 {
 	public String PlanetName;
@@ -12,7 +12,12 @@ public partial class Planet : Node2D
 	int[] Stats;
 	int Ressource;
 	int Qty;
-	public Planet(String PlanetName,String FlavourText,int ChallengeType,int Difficulty,int[] Stats,int Ressource,int Qty)
+	public bool Pressed=false;
+	public Planet()
+	{
+		
+	}
+	public void CustomInit(String PlanetName,String FlavourText,int ChallengeType,int Difficulty,int[] Stats,int Ressource,int Qty)
 	{
 		this.PlanetName=PlanetName;
 		this.FlavourText=FlavourText;
@@ -58,4 +63,10 @@ public partial class Planet : Node2D
 
 		}
 	}
+	public void PlanetPressed(){
+		GD.Print(PlanetName);
+		Pressed=true;
+	}
+	
+	
 }
