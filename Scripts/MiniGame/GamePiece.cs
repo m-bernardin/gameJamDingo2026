@@ -11,6 +11,9 @@ public partial class GamePiece : Area2D
 	private Vector2 originalPosition;
 	public override void _Ready()
 	{
+		//var collisionBox=new CollisionBox();
+		//collisionBox.MouseEntered+=()=>MouseEntered();
+		//collisionBox.MouseExited+=()=>MouseExited();
 	}
 	public override void _Process(double delta)
 	{
@@ -57,15 +60,15 @@ public partial class GamePiece : Area2D
 		if(beingDragged)
 		{
 			EndDrag(!HasOverlappingAreas());
-			GlobalPosition=GetLocalMousePosition();
+			GlobalPosition=GetGlobalMousePosition();
 		}
-		//GD.Print("dragging state: "+beingDragged);
 	}
 	public void BeginDrag()
 	{
 		if (Input.IsMouseButtonPressed(MouseButton.Left)&&mouseInside)
 		{
 			originalPosition=GlobalPosition;
+			GD.Print("original position: "+originalPosition);
 			beingDragged=true;
 		}
 	}
@@ -73,8 +76,10 @@ public partial class GamePiece : Area2D
 	{
 		if (Input.IsMouseButtonPressed(MouseButton.Right))
 		{
+			GD.Print("valid move: "+validMove);
 			if (!validMove)
 			{
+				GD.Print("invalid move detected, moving to: "+originalPosition);
 				GlobalPosition=originalPosition;
 			}
 			beingDragged=false;

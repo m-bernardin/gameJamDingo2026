@@ -9,10 +9,12 @@ public partial class MiniGameManager : Node2D
 	{
 		var scene1=ResourceLoader.Load<PackedScene>("res://Scenes/MiniGame/piece1.tscn");
 		var piece1=scene1.Instantiate<GamePiece>();
-		piece1.Position=new Vector2(550,400);
-		var scene2=ResourceLoader.Load<PackedScene>("res://Scenes/MiniGame/piece1.tscn");
+		AddChild(piece1);
+		piece1.Position=new Vector2(800,800);
+		var scene2=ResourceLoader.Load<PackedScene>("res://Scenes/MiniGame/piece2.tscn");
 		var piece2=scene2.Instantiate<GamePiece>();
-		piece2.Position=new Vector2(700,800);
+		AddChild(piece2);
+		piece2.Position=new Vector2(1000,800);
 	}
 	public override void _Process(double delta)
 	{
