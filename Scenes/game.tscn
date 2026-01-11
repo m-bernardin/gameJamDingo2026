@@ -1,19 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://chd30c5qrvmhk"]
+[gd_scene load_steps=2 format=3 uid="uid://chd30c5qrvmhk"]
 
-[ext_resource type="PackedScene" uid="uid://bfasfvcjd3wd4" path="res://Scenes/title.tscn" id="1_ebmjs"]
-[ext_resource type="PackedScene" uid="uid://ch5pacdga2ixx" path="res://Scenes/options.tscn" id="2_qxrlw"]
+[ext_resource type="Script" uid="uid://b2wrn8krljglh" path="res://Scenes/Game.cs" id="1_ebmjs"]
 
 [node name="Game" type="Node"]
-
-[node name="Title" parent="." instance=ExtResource("1_ebmjs")]
-
-[node name="MiniGame" type="Area2D" parent="."]
-
-[node name="Options" parent="." instance=ExtResource("2_qxrlw")]
-
-[node name="Navigation" parent="." instance=ExtResource("1_ebmjs")]
-
-[node name="WinScreen" type="Area2D" parent="."]
-
-[node name="LossScreen" type="Area2D" parent="."]
-position = Vector2(44, 42)
+script = ExtResource("1_ebmjs")

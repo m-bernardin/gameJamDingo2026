@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cv8ujtbppg5bp"]
+[gd_scene load_steps=8 format=3 uid="uid://cv8ujtbppg5bp"]
 
 [ext_resource type="Script" uid="uid://b4fh5v6cbkx6k" path="res://Scripts/Title/Title.cs" id="1_fp2oq"]
 [ext_resource type="Texture2D" uid="uid://darkoohmwjr6v" path="res://Sprites/backgroundTemp.jpg" id="2_fp2oq"]
+[ext_resource type="Texture2D" uid="uid://kodtatx4csjv" path="res://Sprites/Button.png" id="3_q2qps"]
+[ext_resource type="Texture2D" uid="uid://cknhmubyh6bcw" path="res://Sprites/Logo.png" id="4_yosvi"]
+[ext_resource type="Texture2D" uid="uid://ceg5t2xvlekb3" path="res://Sprites/Box.png" id="5_yosvi"]
 
 [sub_resource type="CSharpScript" id="CSharpScript_fp2oq"]
 script/source = "using Godot;
@@ -47,11 +50,25 @@ position = Vector2(960, 640)
 texture = ExtResource("2_fp2oq")
 
 [node name="Play" type="Area2D" parent="."]
+position = Vector2(-33, 388)
 script = SubResource("CSharpScript_fp2oq")
+metadata/_edit_group_ = true
 
-[node name="Sprite" type="Sprite2D" parent="Play"]
+[node name="Label" type="Label" parent="Play"]
+modulate = Color(0.105436645, 0.28621024, 0.23936337, 1)
+self_modulate = Color(0.105436645, 0.28621024, 0.23936337, 1)
+z_index = 1
+offset_left = 963.0
+offset_top = 451.0
+offset_right = 1013.0
+offset_bottom = 524.0
+theme_override_font_sizes/font_size = 25
+text = "Play
+"
 
 [node name="Button" type="Button" parent="Play"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0)
 offset_left = 802.0
 offset_top = 444.0
 offset_right = 1171.0
@@ -60,33 +77,88 @@ action_mode = 0
 text = "PLAY"
 script = SubResource("CSharpScript_ekrfg")
 
+[node name="Sprite" type="Sprite2D" parent="Play"]
+position = Vector2(990.00006, 466)
+scale = Vector2(0.2093496, 0.20934959)
+texture = ExtResource("3_q2qps")
+
 [node name="Options" type="Area2D" parent="."]
+position = Vector2(-33, 388)
 script = SubResource("CSharpScript_fp2oq")
+metadata/_edit_group_ = true
 
 [node name="Sprite" type="Sprite2D" parent="Options"]
 
 [node name="Button" type="Button" parent="Options"]
 offset_left = 807.0
-offset_top = 585.0
+offset_top = 581.0
 offset_right = 1176.0
-offset_bottom = 644.0
+offset_bottom = 640.0
 action_mode = 0
 text = "OPTIONS"
 script = SubResource("CSharpScript_ekrfg")
 
+[node name="Sprite2" type="Sprite2D" parent="Options"]
+position = Vector2(990.00006, 604)
+scale = Vector2(0.2093496, 0.20934959)
+texture = ExtResource("3_q2qps")
+
+[node name="Label" type="Label" parent="Options"]
+modulate = Color(0.105436645, 0.28621024, 0.23936337, 1)
+self_modulate = Color(0.105436645, 0.28621024, 0.23936337, 1)
+z_index = 1
+offset_left = 944.0
+offset_top = 586.0
+offset_right = 1039.0
+offset_bottom = 659.0
+theme_override_font_sizes/font_size = 25
+text = "Options
+"
+
 [node name="Quit" type="Area2D" parent="."]
+position = Vector2(-33, 388)
 script = SubResource("CSharpScript_fp2oq")
+metadata/_edit_group_ = true
 
 [node name="Sprite" type="Sprite2D" parent="Quit"]
 
 [node name="Button" type="Button" parent="Quit"]
-offset_left = 722.0
-offset_top = 307.0
-offset_right = 1091.0
-offset_bottom = 366.0
+offset_left = 807.0
+offset_top = 693.0
+offset_right = 1176.0
+offset_bottom = 752.0
 action_mode = 0
 text = "QUIT"
 script = SubResource("CSharpScript_ekrfg")
+
+[node name="Sprite2" type="Sprite2D" parent="Quit"]
+position = Vector2(990.00006, 723)
+scale = Vector2(0.2093496, 0.20934959)
+texture = ExtResource("3_q2qps")
+
+[node name="Label" type="Label" parent="Quit"]
+modulate = Color(0.105436645, 0.28621024, 0.23936337, 1)
+self_modulate = Color(0.105436645, 0.28621024, 0.23936337, 1)
+z_index = 1
+offset_left = 944.0
+offset_top = 703.0
+offset_right = 1039.0
+offset_bottom = 776.0
+theme_override_font_sizes/font_size = 25
+text = "Quit
+
+"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1058, 267)
+texture = ExtResource("4_yosvi")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+
+[node name="Box" type="Sprite2D" parent="."]
+position = Vector2(937, 571.00006)
+scale = Vector2(0.37338224, 0.37338227)
+texture = ExtResource("5_yosvi")
 
 [connection signal="pressed" from="Play/Button" to="." method="PlayPressed"]
 [connection signal="pressed" from="Options/Button" to="." method="OptionsPressed"]

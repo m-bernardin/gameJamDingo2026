@@ -22,31 +22,33 @@ public partial class Navigation : Node2D
 	Planet ChildNodeB;
 	Planet SelectedNode;
 	bool RebootMap=false;
+	bool Preexisted=false;
 	public override void _Ready()
 	{
-		GeneratePlanets();
-		GenerateTree();
-		foreach(KeyValuePair<Planet,ArrayList> pair in PlanetTree)
-		{
-			GD.Print("Key");
-			GD.Print(pair.Key.PlanetName);
-			GD.Print("Values");
-			foreach(Planet value in pair.Value)
+		if(!Preexisted)
+			GeneratePlanets();
+			GenerateTree();
+			foreach(KeyValuePair<Planet,ArrayList> pair in PlanetTree)
 			{
-				GD.Print(value.PlanetName);
+				GD.Print("Key");
+				GD.Print(pair.Key.PlanetName);
+				GD.Print("Values");
+				foreach(Planet value in pair.Value)
+				{
+					GD.Print(value.PlanetName);
+				}
+				Random r = new Random();
+				StartNode.SetSprite("res://Sprites/Planet0.png");
+				AddChild(StartNode);
+				StartNode.Position=new Godot.Vector2(960,900);
+				FindChildren();
+				ChildNodeA.SetSprite("res://Sprites/Planet"+(r.Next(6)+2)+".png");
+				AddChild(ChildNodeA);
+				ChildNodeA.Position=new Godot.Vector2(400,400);
+				ChildNodeB.SetSprite("res://Sprites/Planet"+(r.Next(6)+2)+".png");
+				AddChild(ChildNodeB);
+				ChildNodeB.Position=new Godot.Vector2(1520,400);
 			}
-			Random r = new Random();
-			StartNode.SetSprite("res://Sprites/Planet0.png");
-			AddChild(StartNode);
-			StartNode.Position=new Godot.Vector2(1000,1000);
-			FindChildren();
-			ChildNodeA.SetSprite("res://Sprites/Planet"+(r.Next(6)+2)+".png");
-			AddChild(ChildNodeA);
-			ChildNodeA.Position=new Godot.Vector2(400,400);
-			ChildNodeB.SetSprite("res://Sprites/Planet"+(r.Next(6)+2)+".png");
-			AddChild(ChildNodeB);
-			ChildNodeB.Position=new Godot.Vector2(1520,400);
-		}
 	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
@@ -153,7 +155,7 @@ public partial class Navigation : Node2D
 	}
 	public void SetUpScene()
 	{
-		if (SelectedNode.PlanetName.Equals("Best"))
+		if (SelectedNode.PlanetName.Equals("Eden"))
 		{
 			GD.Print("You made it!!");
 			GetTree().ChangeSceneToFile("res://Scenes/win_screen.tscn");
@@ -164,7 +166,7 @@ public partial class Navigation : Node2D
 			RemoveChild(ChildNodeB);
 			StartNode=SelectedNode;
 			AddChild(StartNode);
-			StartNode.Position=new Godot.Vector2(1000,1000);
+			StartNode.Position=new Godot.Vector2(960,900);
 			FindChildren();
 			if (ChildNodeB != null)
 			{
@@ -179,7 +181,9 @@ public partial class Navigation : Node2D
 			else
 			{
 				AddChild(ChildNodeA);
-				ChildNodeA.Position=new Godot.Vector2(1000,400);
+				ChildNodeA.Position=new Godot.Vector2(960,400);
+				Sprite2D BG=GetNode<Sprite2D>("Background");
+				BG.Texture=GD.Load<Texture2D>("res://Sprites/BGFinal.jpeg");
 			}
 		}
 	}
