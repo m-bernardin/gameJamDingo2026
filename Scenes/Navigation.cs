@@ -11,6 +11,7 @@ using System.Reflection.Emit;
 using System.Threading.Tasks.Dataflow;
 using System.Xml;
 using System.Linq;
+using System.Diagnostics.Tracing;
 
 public partial class Navigation : Node2D
 {
