@@ -1,14 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://mkn3usfm23qe"]
+[gd_scene load_steps=3 format=3 uid="uid://gvyskux6p6r2"]
 
 [ext_resource type="Script" uid="uid://bwqx42cvghe7v" path="res://Scripts/MiniGame/GamePieces/Piece2.cs" id="1_xfjdw"]
-[ext_resource type="Texture2D" uid="uid://dowxp5b4jpf18" path="res://Sprites/gamePiece2Temp.png" id="2_7vce0"]
+[ext_resource type="Texture2D" uid="uid://ch84fubg77yhr" path="res://Sprites/GamePieces/pieceS1.png" id="2_xfjdw"]
 
 [node name="Piece2" type="Area2D"]
 script = ExtResource("1_xfjdw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.56351364, 0.5635136)
-texture = ExtResource("2_7vce0")
+texture = ExtResource("2_xfjdw")
 metadata/_edit_lock_ = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]

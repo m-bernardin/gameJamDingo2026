@@ -16,7 +16,8 @@ using System.Diagnostics.Tracing;
 //checking that this branch works properly
 public partial class Navigation : Node2D
 {
-	// Called when the node enters the scene tree for the first time.
+	bool MinigameRunning=false;
+	// Map
 	Dictionary<Planet,ArrayList> PlanetTree;
 	ArrayList Planets;
 	Planet StartNode;
@@ -25,9 +26,20 @@ public partial class Navigation : Node2D
 	Planet SelectedNode;
 	bool RebootMap=false;
 	bool Preexisted=false;
+
+	//Minigame
+	[Export]
+	public PackedScene[] piecesRef;
+	private Player player;
+	private List<GamePiece> piecesList=new List<GamePiece>();
+	private List<Godot.Vector2> pieceNodes;
+	private CollectionArea collectionArea;
+
+	//Map
 	public override void _Ready()
 	{
-		if(!Preexisted)
+		if(!MinigameRunning)
+		{
 			GeneratePlanets();
 			GenerateTree();
 			foreach(KeyValuePair<Planet,ArrayList> pair in PlanetTree)
@@ -51,6 +63,7 @@ public partial class Navigation : Node2D
 				AddChild(ChildNodeB);
 				ChildNodeB.Position=new Godot.Vector2(1520,400);
 			}
+		}
 	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
@@ -264,6 +277,8 @@ public partial class Navigation : Node2D
 			String[]Ressources=new[]{"oxygen","energy","speed","weight","durability"};
 			FeedbackMessage+="Your "+Ressources[SelectedNode.Ressource]+" has been increased.";
 			Feedback.Text=FeedbackMessage;
+			HideMap();
+			SetUpMinigame();
 			SetUpScene();
 		}
 		else
@@ -282,5 +297,90 @@ public partial class Navigation : Node2D
 		Button ExploreButton=GetNode<Button>("ExplorePlanet");
 		Description.SetVisible(false);
 		ExploreButton.SetVisible(false);
+	}
+	private void HideMap()
+	{
+		StartNode.SetVisible(false);
+		ChildNodeA.SetVisible(false);
+		ChildNodeB.SetVisible(false);
+		Godot.Label Description=GetNode<Godot.Label>("PlanetDescription");
+		Godot.Button ExploreButton=GetNode<Godot.Button>("ExplorePlanet");
+		Description.SetVisible(false);
+		ExploreButton.SetVisible(false);
+	}
+	private void SetUpMap()
+	{
+		StartNode.SetVisible(true);
+		ChildNodeA.SetVisible(true);
+		ChildNodeB.SetVisible(true);
+	}
+
+//Minigame
+public void SetUpMinigame()
+	{
+		setupCollectionArea();
+		setupPieces();
+	}
+	public void GameEnd()
+	{
+		int score=0;
+		GamePiece[] scoringCandidates = null;
+		if (collectionArea.GetCollectedPieces().Length > 0 )
+		{
+			scoringCandidates = Array.ConvertAll(collectionArea.GetCollectedPieces(), item => (GamePiece) item);
+			for(int i = 0; i < scoringCandidates.Length; ++i)
+			{
+				bool valid=true;
+				GamePiece candidate=scoringCandidates[i];
+				Area2D[] overlaps=candidate.GetOverlappingAreas().ToArray();
+				if(overlaps.Length>0){
+					for(int j = 0; j < overlaps.Length; ++j)
+					{
+						Area2D overlap=overlaps[j];
+						if (overlap.AudioBusOverride)
+						{
+							valid=false;
+						}
+					}
+				}
+				if(valid)score+=candidate.GetSize();
+			}
+		}
+		GD.Print("your score was "+score);
+	}
+	public void setupPieces()
+	{
+		GeneratePieceNodes();
+		for (int i = 0; i < 8; ++i)
+		{
+			int index=GD.RandRange(0,piecesRef.Length-1);
+			var piece=piecesRef[index].Instantiate<GamePiece>();
+			AddChild(piece);
+			piece.GlobalPosition=pieceNodes[i];
+			piecesList.Add(piece);
+		}
+	}
+	public void setupCollectionArea()
+	{
+		var collectionAreaTemp=ResourceLoader.Load<PackedScene>("res://Scenes/MiniGame/collectionArea.tscn");
+		collectionArea=collectionAreaTemp.Instantiate<CollectionArea>();
+		AddChild(collectionArea);
+		collectionArea.GlobalPosition=new Godot.Vector2(960,640);
+		var storageAreaTemp=ResourceLoader.Load<PackedScene>("res://Scenes/MiniGame/storageArea.tscn");
+		StorageArea storageArea=storageAreaTemp.Instantiate<StorageArea>();
+		AddChild(storageArea);
+		storageArea.GlobalPosition=new Godot.Vector2(960,640);
+	}
+	public void GeneratePieceNodes()
+	{
+		pieceNodes=new List<Godot.Vector2>();
+		pieceNodes.Add(new Godot.Vector2(960,100));
+		pieceNodes.Add(new Godot.Vector2(960,1180));
+		pieceNodes.Add(new Godot.Vector2(100,640));
+		pieceNodes.Add(new Godot.Vector2(1820,640));
+		pieceNodes.Add(new Godot.Vector2(100,100));
+		pieceNodes.Add(new Godot.Vector2(100,1180));
+		pieceNodes.Add(new Godot.Vector2(1820,100));
+		pieceNodes.Add(new Godot.Vector2(1820,1180));
 	}
 }
