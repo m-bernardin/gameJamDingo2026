@@ -13,6 +13,7 @@ using System.Xml;
 using System.Linq;
 using System.Diagnostics.Tracing;
 
+//checking that this branch works properly
 public partial class Navigation : Node2D
 {
 	// Called when the node enters the scene tree for the first time.
