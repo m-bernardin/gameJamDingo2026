@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3lp2jowua0ig"]
+
+[ext_resource type="Script" uid="uid://cvwl4rxw5wgvg" path="res://Scripts/MiniGame/PieceS.cs" id="1_q7s2r"]
+[ext_resource type="Texture2D" uid="uid://b6k7l0tn3ca3s" path="res://Sprites/GamePieces/piecS13.png" id="2_fihvv"]
+
+[node name="Piece13" type="Area2D"]
+script = ExtResource("1_q7s2r")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(35.000004, 10)
+scale = Vector2(0.56351364, 0.5635136)
+texture = ExtResource("2_fihvv")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-2, 0)
+rotation = 1.5707964
+polygon = PackedVector2Array(191, -51, 191, 48, -191, 48, -191, -51)
+
+[connection signal="mouse_entered" from="." to="." method="MouseEntered"]
+[connection signal="mouse_exited" from="." to="." method="MouseExited"]

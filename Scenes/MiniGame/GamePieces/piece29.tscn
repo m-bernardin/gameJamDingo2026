@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://prufa33cpcob"]
+
+[ext_resource type="Script" uid="uid://bafuwlpids3h0" path="res://Scripts/MiniGame/PieceL.cs" id="1_dwabu"]
+[ext_resource type="Texture2D" uid="uid://2fo36umsusei" path="res://Sprites/GamePieces/pieceL3.png" id="2_5i4xe"]
+
+[node name="piece29" type="Area2D"]
+script = ExtResource("1_dwabu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(40.000004, 35)
+scale = Vector2(0.56351364, 0.5635136)
+texture = ExtResource("2_5i4xe")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(1, -2)
+rotation = 1.5707964
+polygon = PackedVector2Array(248, 143, 248, 46, 51, 46, 51, -145, -48, -145, -48, 46, -147, 46, -147, 143)
+
+[connection signal="mouse_entered" from="." to="." method="MouseEntered"]
+[connection signal="mouse_exited" from="." to="." method="MouseExited"]
