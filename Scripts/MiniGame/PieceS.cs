@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Drawing;
 
-public partial class Piece1 : GamePiece
+public partial class PieceS : GamePiece
 {
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
