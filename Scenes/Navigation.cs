@@ -146,8 +146,7 @@ public partial class Navigation : Node2D
 		ArrayList BestPlanet=new ArrayList();
 		var scene=ResourceLoader.Load<PackedScene>("res://Scenes/Planet.tscn");
 		var FinalPlanet=scene.Instantiate<Planet>();
-		FinalPlanet.CustomInit("Eden","A beautiful, lush planet with boutiful water, food and air.",1,0, Array.Empty<int>(), 0,0);
-		FinalPlanet.SetSprite("res://Sprites/Planet1.png");
+		FinalPlanet.CustomInit("Eden","A beautiful, lush planet with bountiful water, food and air.",1,0, Array.Empty<int>(), 0,0);
 		BestPlanet.Add(FinalPlanet);
 		foreach(Planet final in CurrentPlanets)
 		{
@@ -181,6 +180,7 @@ public partial class Navigation : Node2D
 			}
 			else
 			{
+				ChildNodeA.SetSprite("res://Sprites/Planet1.png");
 				AddChild(ChildNodeA);
 				ChildNodeA.Position=new Godot.Vector2(960,400);
 				Sprite2D BG=GetNode<Sprite2D>("Background");
