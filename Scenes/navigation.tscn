@@ -84,7 +84,6 @@ scale = Vector2(1.0125, 1.0125)
 texture = ExtResource("3_gxgjm")
 
 [node name="MinigameTimer" type="Timer" parent="."]
-wait_time = 5.0
 
 [connection signal="pressed" from="ExplorePlanet" to="." method="ExplorePressed"]
 [connection signal="timeout" from="MinigameTimer" to="." method="GameEnd"]

@@ -1,6 +1,9 @@
 using Godot;
 using System;
+using System.Formats.Asn1;
 using System.Linq;
+using System.Collections;
+using System.Collections.Immutable;
 
 public partial class CollectionArea : Area2D
 {
@@ -18,6 +21,14 @@ public partial class CollectionArea : Area2D
 	public Area2D[] GetCollectedPieces()
 	{
 		
-		return GetOverlappingAreas().ToArray();
+		Area2D[] Overlaps=GetOverlappingAreas().ToArray();
+		ArrayList ValidPieces = new ArrayList();
+		foreach(Area2D Overlap in Overlaps)
+		{
+			if(Overlap is GamePiece){
+				ValidPieces.Add(Overlap);
+			}
+		}
+		return ValidPieces.ToArray().Cast<Area2D>().ToArray();
 	}
 }

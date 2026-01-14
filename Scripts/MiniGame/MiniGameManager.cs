@@ -25,7 +25,7 @@ public partial class MiniGameManager : Node2D
 	public void GameEnd()
 	{
 		int score=0;
-		GamePiece[] scoringCandidates = null;
+		GamePiece[] scoringCandidates = new GamePiece[collectionArea.GetCollectedPieces().Length];
 		if (collectionArea.GetCollectedPieces().Length > 0 )
 		{
 			scoringCandidates = Array.ConvertAll(collectionArea.GetCollectedPieces(), item => (GamePiece) item);
