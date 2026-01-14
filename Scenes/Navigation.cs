@@ -12,6 +12,8 @@ using System.Threading.Tasks.Dataflow;
 using System.Xml;
 using System.Linq;
 using System.Diagnostics.Tracing;
+using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 
 //checking that this branch works properly
 public partial class Navigation : Node2D
@@ -34,6 +36,7 @@ public partial class Navigation : Node2D
 	private List<GamePiece> piecesList=new List<GamePiece>();
 	private List<Godot.Vector2> pieceNodes;
 	private CollectionArea collectionArea;
+	private StorageArea storageArea;
 
 	//Map
 	public override void _Ready()
@@ -277,9 +280,10 @@ public partial class Navigation : Node2D
 			String[]Ressources=new[]{"oxygen","energy","speed","weight","durability"};
 			FeedbackMessage+="Your "+Ressources[SelectedNode.Ressource]+" has been increased.";
 			Feedback.Text=FeedbackMessage;
+			SetUpScene();
 			HideMap();
 			SetUpMinigame();
-			SetUpScene();
+			MinigameRunning=true;
 		}
 		else
 		{
@@ -310,24 +314,38 @@ public partial class Navigation : Node2D
 	}
 	private void SetUpMap()
 	{
+		Godot.Timer MinigameTimer = GetNode<Godot.Timer>("MinigameTimer");
+		MinigameTimer.Stop();
 		StartNode.SetVisible(true);
 		ChildNodeA.SetVisible(true);
 		ChildNodeB.SetVisible(true);
 	}
 
 //Minigame
+
 public void SetUpMinigame()
 	{
 		setupCollectionArea();
 		setupPieces();
+		Godot.Timer MinigameTimer = GetNode<Godot.Timer>("MinigameTimer");
+		MinigameTimer.Start();
 	}
-	public void GameEnd()
+private void CloseMinigame()
+	{
+		foreach(GamePiece piece in piecesList)
+		{
+			RemoveChild(piece);
+		}
+		RemoveChild(storageArea);
+		RemoveChild(collectionArea);
+	}
+public void GameEnd()
 	{
 		int score=0;
 		GamePiece[] scoringCandidates = null;
 		if (collectionArea.GetCollectedPieces().Length > 0 )
 		{
-			scoringCandidates = Array.ConvertAll(collectionArea.GetCollectedPieces(), item => (GamePiece) item);
+			scoringCandidates = Array.ConvertAll(collectionArea.GetCollectedPieces(), item => (GamePiece)item);
 			for(int i = 0; i < scoringCandidates.Length; ++i)
 			{
 				bool valid=true;
@@ -347,10 +365,13 @@ public void SetUpMinigame()
 			}
 		}
 		GD.Print("your score was "+score);
+		CloseMinigame();
+		SetUpMap();
 	}
 	public void setupPieces()
 	{
 		GeneratePieceNodes();
+		piecesList=new List<GamePiece>();
 		for (int i = 0; i < 8; ++i)
 		{
 			int index=GD.RandRange(0,piecesRef.Length-1);
@@ -367,7 +388,7 @@ public void SetUpMinigame()
 		AddChild(collectionArea);
 		collectionArea.GlobalPosition=new Godot.Vector2(960,640);
 		var storageAreaTemp=ResourceLoader.Load<PackedScene>("res://Scenes/MiniGame/storageArea.tscn");
-		StorageArea storageArea=storageAreaTemp.Instantiate<StorageArea>();
+		storageArea=storageAreaTemp.Instantiate<StorageArea>();
 		AddChild(storageArea);
 		storageArea.GlobalPosition=new Godot.Vector2(960,640);
 	}

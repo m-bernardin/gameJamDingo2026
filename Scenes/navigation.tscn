@@ -1,11 +1,42 @@
-[gd_scene load_steps=4 format=3 uid="uid://egjbhvtq6ry8"]
+[gd_scene load_steps=34 format=3 uid="uid://egjbhvtq6ry8"]
 
 [ext_resource type="Script" uid="uid://c0sk0eq48qcjw" path="res://Scenes/Navigation.cs" id="1_gxgjm"]
+[ext_resource type="PackedScene" uid="uid://xanpb76x2lug" path="res://Scenes/MiniGame/GamePieces/piece1.tscn" id="2_f0diq"]
 [ext_resource type="Script" uid="uid://bkr8fc3vdy7h2" path="res://Scenes/Player.cs" id="3_5pagq"]
+[ext_resource type="PackedScene" uid="uid://byj5mxd6icmhl" path="res://Scenes/MiniGame/GamePieces/piece2.tscn" id="3_cxgs4"]
 [ext_resource type="Texture2D" uid="uid://dv47x7ffdkkxr" path="res://Sprites/BG.jpeg" id="3_gxgjm"]
+[ext_resource type="PackedScene" uid="uid://ccyrli5r2rfcx" path="res://Scenes/MiniGame/GamePieces/piece3.tscn" id="4_xd4c6"]
+[ext_resource type="PackedScene" uid="uid://cvvyutvtx6e7p" path="res://Scenes/MiniGame/GamePieces/piece4.tscn" id="5_drgaa"]
+[ext_resource type="PackedScene" uid="uid://cqmaqp8ben78y" path="res://Scenes/MiniGame/GamePieces/piece5.tscn" id="6_b0otl"]
+[ext_resource type="PackedScene" uid="uid://dynh4slxikqlx" path="res://Scenes/MiniGame/GamePieces/piece6.tscn" id="7_6fjkg"]
+[ext_resource type="PackedScene" uid="uid://18q5j62udnmj" path="res://Scenes/MiniGame/GamePieces/piece7.tscn" id="8_sggre"]
+[ext_resource type="PackedScene" uid="uid://cvce6c8yt70ux" path="res://Scenes/MiniGame/GamePieces/piece8.tscn" id="9_w3e3s"]
+[ext_resource type="PackedScene" uid="uid://c4hso7las0w2x" path="res://Scenes/MiniGame/GamePieces/piece9.tscn" id="10_qrv0y"]
+[ext_resource type="PackedScene" uid="uid://br27hkbhp6hax" path="res://Scenes/MiniGame/GamePieces/piece10.tscn" id="11_dkg1y"]
+[ext_resource type="PackedScene" uid="uid://ojiarwavdguy" path="res://Scenes/MiniGame/GamePieces/piece11.tscn" id="12_1cj4f"]
+[ext_resource type="PackedScene" uid="uid://d3kai0wu082ua" path="res://Scenes/MiniGame/GamePieces/piece12.tscn" id="13_6gkx3"]
+[ext_resource type="PackedScene" uid="uid://c3lp2jowua0ig" path="res://Scenes/MiniGame/GamePieces/piece13.tscn" id="14_plb30"]
+[ext_resource type="PackedScene" uid="uid://c8suvngk364iw" path="res://Scenes/MiniGame/GamePieces/piece14.tscn" id="15_hntkv"]
+[ext_resource type="PackedScene" uid="uid://eedehqb43kpc" path="res://Scenes/MiniGame/GamePieces/piece15.tscn" id="16_7plbu"]
+[ext_resource type="PackedScene" uid="uid://dp4of0len7tba" path="res://Scenes/MiniGame/GamePieces/piece16.tscn" id="17_80u0n"]
+[ext_resource type="PackedScene" uid="uid://cqjab2x34t0d1" path="res://Scenes/MiniGame/GamePieces/piece17.tscn" id="18_xpp8l"]
+[ext_resource type="PackedScene" uid="uid://dvajaicrmiuip" path="res://Scenes/MiniGame/GamePieces/piece18.tscn" id="19_42hmb"]
+[ext_resource type="PackedScene" uid="uid://b725ittkfc56l" path="res://Scenes/MiniGame/GamePieces/piece19.tscn" id="20_46f1j"]
+[ext_resource type="PackedScene" uid="uid://ce1c4o5mi0haj" path="res://Scenes/MiniGame/GamePieces/piece20.tscn" id="21_fhyux"]
+[ext_resource type="PackedScene" uid="uid://dddmj2yuo4p2i" path="res://Scenes/MiniGame/GamePieces/piece21.tscn" id="22_xeq71"]
+[ext_resource type="PackedScene" uid="uid://dfwwukhjlttks" path="res://Scenes/MiniGame/GamePieces/piece22.tscn" id="23_3ctfs"]
+[ext_resource type="PackedScene" uid="uid://cmux034wcyi7s" path="res://Scenes/MiniGame/GamePieces/piece23.tscn" id="24_mq1xs"]
+[ext_resource type="PackedScene" uid="uid://c1yfd3gjcp6t0" path="res://Scenes/MiniGame/GamePieces/piece24.tscn" id="25_jka3c"]
+[ext_resource type="PackedScene" uid="uid://dnsy1h0c15frg" path="res://Scenes/MiniGame/GamePieces/piece25.tscn" id="26_r0c05"]
+[ext_resource type="PackedScene" uid="uid://c54dvcujrb46v" path="res://Scenes/MiniGame/GamePieces/piece26.tscn" id="27_ednof"]
+[ext_resource type="PackedScene" uid="uid://4wxcregrapce" path="res://Scenes/MiniGame/GamePieces/piece27.tscn" id="28_2aqs3"]
+[ext_resource type="PackedScene" uid="uid://drn37ddg51slc" path="res://Scenes/MiniGame/GamePieces/piece28.tscn" id="29_oxasq"]
+[ext_resource type="PackedScene" uid="uid://prufa33cpcob" path="res://Scenes/MiniGame/GamePieces/piece29.tscn" id="30_1kb6m"]
+[ext_resource type="PackedScene" uid="uid://b2iw3t7v3xmti" path="res://Scenes/MiniGame/GamePieces/piece30.tscn" id="31_v2hi4"]
 
 [node name="Navigation" type="Node2D"]
 script = ExtResource("1_gxgjm")
+piecesRef = Array[PackedScene]([ExtResource("2_f0diq"), ExtResource("3_cxgs4"), ExtResource("4_xd4c6"), ExtResource("5_drgaa"), ExtResource("6_b0otl"), ExtResource("7_6fjkg"), ExtResource("8_sggre"), ExtResource("9_w3e3s"), ExtResource("10_qrv0y"), ExtResource("11_dkg1y"), ExtResource("12_1cj4f"), ExtResource("13_6gkx3"), ExtResource("14_plb30"), ExtResource("15_hntkv"), ExtResource("16_7plbu"), ExtResource("17_80u0n"), ExtResource("18_xpp8l"), ExtResource("19_42hmb"), ExtResource("20_46f1j"), ExtResource("21_fhyux"), ExtResource("22_xeq71"), ExtResource("23_3ctfs"), ExtResource("24_mq1xs"), ExtResource("25_jka3c"), ExtResource("26_r0c05"), ExtResource("27_ednof"), ExtResource("28_2aqs3"), ExtResource("29_oxasq"), ExtResource("30_1kb6m"), ExtResource("31_v2hi4")])
 
 [node name="Player" type="Node2D" parent="."]
 position = Vector2(136, 482)
@@ -52,4 +83,8 @@ position = Vector2(965, 638)
 scale = Vector2(1.0125, 1.0125)
 texture = ExtResource("3_gxgjm")
 
+[node name="MinigameTimer" type="Timer" parent="."]
+wait_time = 5.0
+
 [connection signal="pressed" from="ExplorePlanet" to="." method="ExplorePressed"]
+[connection signal="timeout" from="MinigameTimer" to="." method="GameEnd"]
