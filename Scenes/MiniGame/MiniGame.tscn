@@ -41,7 +41,6 @@ script = ExtResource("1_xouaj")
 piecesRef = Array[PackedScene]([ExtResource("2_f47a4"), ExtResource("3_gjcx7"), ExtResource("4_hk1kn"), ExtResource("5_rwoln"), ExtResource("5_mw2ou"), ExtResource("7_dh2vi"), ExtResource("8_ytcmi"), ExtResource("9_5pgpe"), ExtResource("10_e541p"), ExtResource("11_nwfox"), ExtResource("12_wfvfq"), ExtResource("13_tbmaj"), ExtResource("14_lawn4"), ExtResource("15_n3yev"), ExtResource("16_5g75o"), ExtResource("17_j3qyd"), ExtResource("18_vtq4y"), ExtResource("19_bqfjm"), ExtResource("20_u0ora"), ExtResource("21_2psio"), ExtResource("22_nfmao"), ExtResource("23_c2o6y"), ExtResource("24_n42db"), ExtResource("25_qgtix"), ExtResource("26_6fj8n"), ExtResource("27_vult1"), ExtResource("28_1o70i"), ExtResource("29_fnkrq"), ExtResource("30_4hcfu"), ExtResource("31_0evrn")])
 
 [node name="Timer" type="Timer" parent="."]
-autostart = true
 script = ExtResource("4_4cwk8")
 
 [node name="Label" type="Label" parent="."]

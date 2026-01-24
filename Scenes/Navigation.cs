@@ -12,10 +12,14 @@ using System.Threading.Tasks.Dataflow;
 using System.Xml;
 using System.Linq;
 using System.Diagnostics.Tracing;
+using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 
+//checking that this branch works properly
 public partial class Navigation : Node2D
 {
-	// Called when the node enters the scene tree for the first time.
+	bool MinigameRunning=false;
+	// Map
 	Dictionary<Planet,ArrayList> PlanetTree;
 	ArrayList Planets;
 	Planet StartNode;
@@ -24,9 +28,24 @@ public partial class Navigation : Node2D
 	Planet SelectedNode;
 	bool RebootMap=false;
 	bool Preexisted=false;
+	double RessourceMult;
+	int Roll;
+	int Odds;
+
+	//Minigame
+	[Export]
+	public PackedScene[] piecesRef;
+	private Player player;
+	private List<GamePiece> piecesList=new List<GamePiece>();
+	private List<Godot.Vector2> pieceNodes;
+	private CollectionArea collectionArea;
+	private StorageArea storageArea;
+
+	//Map
 	public override void _Ready()
 	{
-		if(!Preexisted)
+		if(!MinigameRunning)
+		{
 			GeneratePlanets();
 			GenerateTree();
 			foreach(KeyValuePair<Planet,ArrayList> pair in PlanetTree)
@@ -50,6 +69,7 @@ public partial class Navigation : Node2D
 				AddChild(ChildNodeB);
 				ChildNodeB.Position=new Godot.Vector2(1520,400);
 			}
+		}
 	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
@@ -205,73 +225,83 @@ public partial class Navigation : Node2D
 	private void RunChallenge()
 	{
 		Player Alien=(Player)GetNode<Node2D>("Player");
-		int Odds=Alien.GetOdds(SelectedNode.Stats,SelectedNode.ChallengeType);
+		Odds=Alien.GetOdds(SelectedNode.Stats,SelectedNode.ChallengeType);
 		Godot.Label Feedback=GetNode<Godot.Label>("SuccessFeedback");
-		String FeedbackMessage="";
 		GD.Print(Odds);
 		GD.Print(SelectedNode.Difficulty);
 		Odds=Odds-SelectedNode.Difficulty;
 		GD.Print(Odds);
 		Random r=new Random();
-		int roll=r.Next(100);
-		if (roll <= Odds+30)
+		Roll=r.Next(100);
+		if (Roll <= Odds+30)
 		{
 			GD.Print("Pass!!");
-			GD.Print(roll);
+			GD.Print(Roll);
 			GD.Print(Odds);
-			Alien.Stats[SelectedNode.Ressource]=Alien.Stats[SelectedNode.Ressource]+SelectedNode.Qty;
-			Alien.Stats[0]=Alien.Stats[0]-10;
-			Alien.Stats[1]=Alien.Stats[1]-10;
-			if (roll > Odds)
-			{
-				FeedbackMessage+="The ship took a hit in this landing";
-				if (SelectedNode.Stats.Contains(2))
-				{
-					FeedbackMessage+=", the thrusters are damaged";
-				}
-				if (SelectedNode.Stats.Contains(3))
-				{
-					FeedbackMessage+=", its heavier now ig";
-				}
-				if (SelectedNode.Stats.Contains(4))
-				{
-					FeedbackMessage+=", the outer shell is damaged";
-				}
-				FeedbackMessage+=".\n";
-				GD.Print("landing successfull but ship took a hit :(");
-				int Mod=20/SelectedNode.Stats.Length;
-				foreach(int AffectedStat in SelectedNode.Stats)
-				{
-					Alien.Stats[AffectedStat]=Alien.Stats[AffectedStat]-Mod;
-					if (Alien.Stats[AffectedStat] <= 0)
-					{
-						GD.Print("ship was damadged beyond repair");
-						GD.Print(roll);
-						GD.Print(Odds);
-						GetTree().ChangeSceneToFile("res://Scenes/lose_screen.tscn");
-					}
-				}
-			}
-			else
-			{
-				FeedbackMessage+="This landing was a great success!! \n";
-			}
-			foreach(int stat in Alien.Stats)
-			{
-				GD.Print(stat);
-			}
-			String[]Ressources=new[]{"oxygen","energy","speed","weight","durability"};
-			FeedbackMessage+="Your "+Ressources[SelectedNode.Ressource]+" has been increased.";
-			Feedback.Text=FeedbackMessage;
-			SetUpScene();
+			HideMap();
+			SetUpMinigame();
+			MinigameRunning=true;
 		}
 		else
 		{
 			GD.Print("sorry you lose");
-			GD.Print(roll);
+			GD.Print(Roll);
 			GD.Print(Odds);
 			GetTree().ChangeSceneToFile("res://Scenes/lose_screen.tscn");
 		}
+	}
+
+	private void AjustRessources()
+	{
+		Player Alien=(Player)GetNode<Node2D>("Player");
+		String FeedbackMessage="";
+		GD.Print(SelectedNode.PlanetName);
+		Alien.Stats[SelectedNode.Ressource]=(int)(((double)Alien.Stats[SelectedNode.Ressource]+SelectedNode.Qty)*RessourceMult);
+		GD.Print("increased "+SelectedNode.Ressource+" by "+SelectedNode.Qty+" times "+RessourceMult);
+		Alien.Stats[0]=Alien.Stats[0]-10;
+		Alien.Stats[1]=Alien.Stats[1]-10;
+		if (Roll > Odds)
+		{
+			FeedbackMessage+="The ship took a hit in this landing";
+			if (SelectedNode.Stats.Contains(2))
+			{
+				FeedbackMessage+=", the thrusters are damaged";
+			}
+			if (SelectedNode.Stats.Contains(3))
+			{
+				FeedbackMessage+=", its heavier now ig";
+			}
+			if (SelectedNode.Stats.Contains(4))
+			{
+				FeedbackMessage+=", the outer shell is damaged";
+			}
+			FeedbackMessage+=".\n";
+			GD.Print("landing successfull but ship took a hit :(");
+			int Mod=20/SelectedNode.Stats.Length;
+			foreach(int AffectedStat in SelectedNode.Stats)
+			{
+				Alien.Stats[AffectedStat]=Alien.Stats[AffectedStat]-Mod;
+				if (Alien.Stats[AffectedStat] <= 0)
+				{
+					GD.Print("ship was damadged beyond repair");
+					GD.Print(Roll);
+					GD.Print(Odds);
+					GetTree().ChangeSceneToFile("res://Scenes/lose_screen.tscn");
+				}
+			}
+		}
+		else
+		{
+			FeedbackMessage+="This landing was a great success!! \n";
+		}
+		foreach(int stat in Alien.Stats)
+		{
+			GD.Print(stat);
+		}
+		String[]Ressources=new[]{"oxygen","energy","speed","weight","durability"};
+		FeedbackMessage+="Your "+Ressources[SelectedNode.Ressource]+" has been increased.";
+		Godot.Label Feedback=GetNode<Godot.Label>("SuccessFeedback");
+		Feedback.Text=FeedbackMessage;
 	}
 
 	private void ExplorePressed()
@@ -281,5 +311,118 @@ public partial class Navigation : Node2D
 		Button ExploreButton=GetNode<Button>("ExplorePlanet");
 		Description.SetVisible(false);
 		ExploreButton.SetVisible(false);
+	}
+	private void HideMap()
+	{
+		StartNode.SetVisible(false);
+		ChildNodeA.SetVisible(false);
+		ChildNodeB.SetVisible(false);
+		Godot.Label Description=GetNode<Godot.Label>("PlanetDescription");
+		Godot.Button ExploreButton=GetNode<Godot.Button>("ExplorePlanet");
+		Description.SetVisible(false);
+		ExploreButton.SetVisible(false);
+	}
+	private void SetUpMap()
+	{
+		SetUpScene();
+		Godot.Timer MinigameTimer = GetNode<Godot.Timer>("MinigameTimer");
+		MinigameTimer.Stop();
+		StartNode.SetVisible(true);
+		ChildNodeA.SetVisible(true);
+		ChildNodeB.SetVisible(true);
+	}
+
+//Minigame
+
+public void SetUpMinigame()
+	{
+		setupCollectionArea();
+		setupPieces();
+		Godot.Timer MinigameTimer = GetNode<Godot.Timer>("MinigameTimer");
+		MinigameTimer.Start(15.0);
+	}
+private void CloseMinigame()
+	{
+		foreach(GamePiece piece in piecesList)
+		{
+			RemoveChild(piece);
+		}
+		RemoveChild(storageArea);
+		RemoveChild(collectionArea);
+		AjustRessources();
+	}
+public void GameEnd()
+	{
+		int score=0;
+		GamePiece[] scoringCandidates = null;
+		if (collectionArea.GetCollectedPieces().Length > 0 )
+		{
+			scoringCandidates = Array.ConvertAll(collectionArea.GetCollectedPieces(), item => (GamePiece)item);
+			for(int i = 0; i < scoringCandidates.Length; ++i)
+			{
+				bool valid=true;
+				GamePiece candidate=scoringCandidates[i];
+				Area2D[] overlaps=candidate.GetOverlappingAreas().ToArray();
+				if(overlaps.Length>0){
+					for(int j = 0; j < overlaps.Length; ++j)
+					{
+						Area2D overlap=overlaps[j];
+						if (overlap.AudioBusOverride)
+						{
+							valid=false;
+						}
+					}
+				}
+				if(valid)score+=candidate.GetSize();
+			}
+		}
+		
+		GD.Print("your score was "+score);
+		if (score > 0)
+		{
+			RessourceMult=score/10.0;
+		}
+		else
+		{
+			RessourceMult=1.0;
+		}
+		CloseMinigame();
+		SetUpMap();
+	}
+	public void setupPieces()
+	{
+		GeneratePieceNodes();
+		piecesList=new List<GamePiece>();
+		for (int i = 0; i < 8; ++i)
+		{
+			int index=GD.RandRange(0,piecesRef.Length-1);
+			var piece=piecesRef[index].Instantiate<GamePiece>();
+			AddChild(piece);
+			piece.GlobalPosition=pieceNodes[i];
+			piecesList.Add(piece);
+		}
+	}
+	public void setupCollectionArea()
+	{
+		var collectionAreaTemp=ResourceLoader.Load<PackedScene>("res://Scenes/MiniGame/collectionArea.tscn");
+		collectionArea=collectionAreaTemp.Instantiate<CollectionArea>();
+		AddChild(collectionArea);
+		collectionArea.GlobalPosition=new Godot.Vector2(960,640);
+		var storageAreaTemp=ResourceLoader.Load<PackedScene>("res://Scenes/MiniGame/storageArea.tscn");
+		storageArea=storageAreaTemp.Instantiate<StorageArea>();
+		AddChild(storageArea);
+		storageArea.GlobalPosition=new Godot.Vector2(960,640);
+	}
+	public void GeneratePieceNodes()
+	{
+		pieceNodes=new List<Godot.Vector2>();
+		pieceNodes.Add(new Godot.Vector2(960,100));
+		pieceNodes.Add(new Godot.Vector2(960,1180));
+		pieceNodes.Add(new Godot.Vector2(100,640));
+		pieceNodes.Add(new Godot.Vector2(1820,640));
+		pieceNodes.Add(new Godot.Vector2(100,100));
+		pieceNodes.Add(new Godot.Vector2(100,1180));
+		pieceNodes.Add(new Godot.Vector2(1820,100));
+		pieceNodes.Add(new Godot.Vector2(1820,1180));
 	}
 }
