@@ -28,6 +28,9 @@ public partial class Navigation : Node2D
 	Planet SelectedNode;
 	bool RebootMap=false;
 	bool Preexisted=false;
+	double RessourceMult;
+	int Roll;
+	int Odds;
 
 	//Minigame
 	[Export]
@@ -222,65 +225,19 @@ public partial class Navigation : Node2D
 	private void RunChallenge()
 	{
 		Player Alien=(Player)GetNode<Node2D>("Player");
-		int Odds=Alien.GetOdds(SelectedNode.Stats,SelectedNode.ChallengeType);
+		Odds=Alien.GetOdds(SelectedNode.Stats,SelectedNode.ChallengeType);
 		Godot.Label Feedback=GetNode<Godot.Label>("SuccessFeedback");
-		String FeedbackMessage="";
 		GD.Print(Odds);
 		GD.Print(SelectedNode.Difficulty);
 		Odds=Odds-SelectedNode.Difficulty;
 		GD.Print(Odds);
 		Random r=new Random();
-		int roll=r.Next(100);
-		if (roll <= Odds+30)
+		Roll=r.Next(100);
+		if (Roll <= Odds+30)
 		{
 			GD.Print("Pass!!");
-			GD.Print(roll);
+			GD.Print(Roll);
 			GD.Print(Odds);
-			Alien.Stats[SelectedNode.Ressource]=Alien.Stats[SelectedNode.Ressource]+SelectedNode.Qty;
-			Alien.Stats[0]=Alien.Stats[0]-10;
-			Alien.Stats[1]=Alien.Stats[1]-10;
-			if (roll > Odds)
-			{
-				FeedbackMessage+="The ship took a hit in this landing";
-				if (SelectedNode.Stats.Contains(2))
-				{
-					FeedbackMessage+=", the thrusters are damaged";
-				}
-				if (SelectedNode.Stats.Contains(3))
-				{
-					FeedbackMessage+=", its heavier now ig";
-				}
-				if (SelectedNode.Stats.Contains(4))
-				{
-					FeedbackMessage+=", the outer shell is damaged";
-				}
-				FeedbackMessage+=".\n";
-				GD.Print("landing successfull but ship took a hit :(");
-				int Mod=20/SelectedNode.Stats.Length;
-				foreach(int AffectedStat in SelectedNode.Stats)
-				{
-					Alien.Stats[AffectedStat]=Alien.Stats[AffectedStat]-Mod;
-					if (Alien.Stats[AffectedStat] <= 0)
-					{
-						GD.Print("ship was damadged beyond repair");
-						GD.Print(roll);
-						GD.Print(Odds);
-						GetTree().ChangeSceneToFile("res://Scenes/lose_screen.tscn");
-					}
-				}
-			}
-			else
-			{
-				FeedbackMessage+="This landing was a great success!! \n";
-			}
-			foreach(int stat in Alien.Stats)
-			{
-				GD.Print(stat);
-			}
-			String[]Ressources=new[]{"oxygen","energy","speed","weight","durability"};
-			FeedbackMessage+="Your "+Ressources[SelectedNode.Ressource]+" has been increased.";
-			Feedback.Text=FeedbackMessage;
-			SetUpScene();
 			HideMap();
 			SetUpMinigame();
 			MinigameRunning=true;
@@ -288,10 +245,63 @@ public partial class Navigation : Node2D
 		else
 		{
 			GD.Print("sorry you lose");
-			GD.Print(roll);
+			GD.Print(Roll);
 			GD.Print(Odds);
 			GetTree().ChangeSceneToFile("res://Scenes/lose_screen.tscn");
 		}
+	}
+
+	private void AjustRessources()
+	{
+		Player Alien=(Player)GetNode<Node2D>("Player");
+		String FeedbackMessage="";
+		GD.Print(SelectedNode.PlanetName);
+		Alien.Stats[SelectedNode.Ressource]=(int)(((double)Alien.Stats[SelectedNode.Ressource]+SelectedNode.Qty)*RessourceMult);
+		GD.Print("increased "+SelectedNode.Ressource+" by "+SelectedNode.Qty+" times "+RessourceMult);
+		Alien.Stats[0]=Alien.Stats[0]-10;
+		Alien.Stats[1]=Alien.Stats[1]-10;
+		if (Roll > Odds)
+		{
+			FeedbackMessage+="The ship took a hit in this landing";
+			if (SelectedNode.Stats.Contains(2))
+			{
+				FeedbackMessage+=", the thrusters are damaged";
+			}
+			if (SelectedNode.Stats.Contains(3))
+			{
+				FeedbackMessage+=", its heavier now ig";
+			}
+			if (SelectedNode.Stats.Contains(4))
+			{
+				FeedbackMessage+=", the outer shell is damaged";
+			}
+			FeedbackMessage+=".\n";
+			GD.Print("landing successfull but ship took a hit :(");
+			int Mod=20/SelectedNode.Stats.Length;
+			foreach(int AffectedStat in SelectedNode.Stats)
+			{
+				Alien.Stats[AffectedStat]=Alien.Stats[AffectedStat]-Mod;
+				if (Alien.Stats[AffectedStat] <= 0)
+				{
+					GD.Print("ship was damadged beyond repair");
+					GD.Print(Roll);
+					GD.Print(Odds);
+					GetTree().ChangeSceneToFile("res://Scenes/lose_screen.tscn");
+				}
+			}
+		}
+		else
+		{
+			FeedbackMessage+="This landing was a great success!! \n";
+		}
+		foreach(int stat in Alien.Stats)
+		{
+			GD.Print(stat);
+		}
+		String[]Ressources=new[]{"oxygen","energy","speed","weight","durability"};
+		FeedbackMessage+="Your "+Ressources[SelectedNode.Ressource]+" has been increased.";
+		Godot.Label Feedback=GetNode<Godot.Label>("SuccessFeedback");
+		Feedback.Text=FeedbackMessage;
 	}
 
 	private void ExplorePressed()
@@ -314,6 +324,7 @@ public partial class Navigation : Node2D
 	}
 	private void SetUpMap()
 	{
+		SetUpScene();
 		Godot.Timer MinigameTimer = GetNode<Godot.Timer>("MinigameTimer");
 		MinigameTimer.Stop();
 		StartNode.SetVisible(true);
@@ -328,7 +339,7 @@ public void SetUpMinigame()
 		setupCollectionArea();
 		setupPieces();
 		Godot.Timer MinigameTimer = GetNode<Godot.Timer>("MinigameTimer");
-		MinigameTimer.Start();
+		MinigameTimer.Start(15.0);
 	}
 private void CloseMinigame()
 	{
@@ -338,6 +349,7 @@ private void CloseMinigame()
 		}
 		RemoveChild(storageArea);
 		RemoveChild(collectionArea);
+		AjustRessources();
 	}
 public void GameEnd()
 	{
@@ -364,7 +376,16 @@ public void GameEnd()
 				if(valid)score+=candidate.GetSize();
 			}
 		}
+		
 		GD.Print("your score was "+score);
+		if (score > 0)
+		{
+			RessourceMult=score/10.0;
+		}
+		else
+		{
+			RessourceMult=1.0;
+		}
 		CloseMinigame();
 		SetUpMap();
 	}
