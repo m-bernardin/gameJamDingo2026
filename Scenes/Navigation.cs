@@ -306,11 +306,18 @@ public partial class Navigation : Node2D
 
 	private void ExplorePressed()
 	{
-		RunChallenge();
-		Godot.Label Description=GetNode<Godot.Label>("PlanetDescription");
-		Button ExploreButton=GetNode<Button>("ExplorePlanet");
-		Description.SetVisible(false);
-		ExploreButton.SetVisible(false);
+		if (SelectedNode.PlanetName.Equals("Eden"))
+		{
+			GD.Print("You made it!!");
+			GetTree().ChangeSceneToFile("res://Scenes/win_screen.tscn");
+		}
+		else{
+			RunChallenge();
+			Godot.Label Description=GetNode<Godot.Label>("PlanetDescription");
+			Button ExploreButton=GetNode<Button>("ExplorePlanet");
+			Description.SetVisible(false);
+			ExploreButton.SetVisible(false);
+		}
 	}
 	private void HideMap()
 	{
